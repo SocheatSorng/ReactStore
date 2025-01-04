@@ -1,20 +1,25 @@
 // fetchProducts.js
 export const fetchProducts = async () => {
-    const limit = 30;
-    const totalProducts = 194;
-    const products = [];
-    
-    try {
-        for (let skip = 0; skip < totalProducts; skip += limit) {
-            const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
-            const data = await response.json();
-            products.push(...data.products);
-        }
+  try {
+    const response = await fetch("https://fakestoreapi.com/products");
+    const data = await response.json();
 
-        console.log(products);
-        return products;
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        return [];
+    // Duplicate products to reach 150 items
+    const duplicatedProducts = [];
+    const numberOfCopies = Math.ceil(150 / data.length);
+
+    for (let i = 0; i < numberOfCopies; i++) {
+      const modifiedProducts = data.map((product) => ({
+        ...product,
+        id: product.id + i * data.length, // Ensure unique IDs
+      }));
+      duplicatedProducts.push(...modifiedProducts);
     }
+
+    // Slice to exactly 150 products
+    return duplicatedProducts.slice(0, 150);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
 };

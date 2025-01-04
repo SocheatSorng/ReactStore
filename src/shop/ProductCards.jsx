@@ -1,69 +1,87 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const ProductCards = ({GridList, products}) => {
-    return (
-        <div className={`shop-product-wrap row justify-content-center ${GridList ? "grid" : "list"}`}>
-            {
-                products.map((product, i) => (
-                    <div key={i} className='col-lg-4 col-md-6 col-12'>
-                        <div className='product-item'>
-                            {/* product images */}
-                            <div className="product-thumb">
-                                <div className="pro-thumb">
-                                     <img src={product.thumbnail} alt="" />
-                                </div>
+const ProductCards = ({ GridList, products }) => {
+  return (
+    <div
+      className={`shop-product-wrap row justify-content-center ${
+        GridList ? "grid" : "list"
+      }`}
+    >
+      {products.map((product, i) => (
+        <div key={i} className="col-lg-4 col-md-6 col-12">
+          <div className="product-item">
+            <div
+              className="card border-0 shadow-sm"
+              style={{ height: "400px" }}
+            >
+              {/* Product Image */}
+              <div
+                style={{
+                  height: "250px",
+                  overflow: "hidden",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "1rem",
+                }}
+              >
+                <Link
+                  to={`/shop/${product.id}`}
+                  className="h-100 w-100 d-flex align-items-center justify-content-center"
+                >
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Link>
+              </div>
 
-                                {/* product action links */}
-                                <div className="product-action-link">
-                                    <Link to={`/shop/${product.id}`}><i className='icofont-eye'></i></Link>
-                                    <a href="#">
-                                        <i className="icofont-heart"></i>
-                                    </a>
-                                    <Link to="/cart-page"><i className='icofont-cart-alt'></i></Link>
-                                </div>
-                            </div>
-
-                            {/* product content */}
-                            <div className="product-content">
-                                <h5>
-                                    <Link to={`/shop/${product.id}`}>{product.title}</Link>
-                                </h5>
-                                <h6>${product.price}</h6>
-                            </div>
-                        </div>
-
-                        {/* list style */}
-                        <div className='product-list-item'>
-                            {/* product images */}
-                            <div className="product-thumb">
-                                <div className="pro-thumb">
-                                     <img src={product.thumbnail} alt="" />
-                                </div>
-
-                                {/* product action links */}
-                                <div className="product-action-link">
-                                    <Link to={`/shop/${product.id}`}><i className='icofont-eye'></i></Link>
-                                    <a href="#">
-                                        <i className="icofont-heart"></i>
-                                    </a>
-                                    <Link to="/cart-page"><i className='icofont-cart-alt'></i></Link>
-                                </div>
-                            </div>
-
-                            {/* product content */}
-                            <div className="product-content">
-                                <h5>
-                                    <Link to={`/shop/${product.id}`}>{product.title}</Link>
-                                </h5>
-                                <h6>${product.price}</h6>
-                            </div>
-                        </div>
-                    </div>
-                ))
-            }
+              {/* Product Details */}
+              <div className="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <Link
+                    to={`/shop/${product.id}`}
+                    className="text-decoration-none text-dark"
+                  >
+                    <h6
+                      className="card-title mb-2"
+                      style={{
+                        overflow: "hidden",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "2",
+                        WebkitBoxOrient: "vertical",
+                        lineHeight: "1.2",
+                      }}
+                    >
+                      {product.title}
+                    </h6>
+                  </Link>
+                  <p className="price fw-bold mb-2">${product.price}</p>
+                </div>
+                <div className="d-flex justify-content-center gap-2">
+                  <Link
+                    to={`/shop/${product.id}`}
+                    className="btn btn-sm btn-outline-primary"
+                  >
+                    View Details
+                  </Link>
+                  <button className="btn btn-sm btn-primary">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    )
-}
+      ))}
+    </div>
+  );
+};
 
 export default ProductCards;
